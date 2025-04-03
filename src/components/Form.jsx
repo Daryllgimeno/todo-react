@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import { useForm} from 'react-hook-form';
+
 
 const Form = ({ addTask }) => {
-    const [taskInput, setTaskInput] = useState("");
+    const { register, handleSubmit, reset } = useForm();
+    
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        if (!taskInput.trim()) return;
-        addTask(taskInput);
-        setTaskInput("");
+    const handleFormSubmit = (data) => {
+        if (!data.task.trim()) return;
+        addTask(data.task);
+        reset();
     };
 
     return (
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
             <input 
                 type="text" 
-                value={taskInput} 
-                onChange={(e) => setTaskInput(e.target.value)} 
+                {...register("task", { required: true })} 
                 placeholder="Add a new task"
             />
             <button type="submit">Add Task</button>

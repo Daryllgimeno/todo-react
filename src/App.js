@@ -3,6 +3,7 @@ import Form from "./components/Form";
 import TodoItem from "./components/TodoItem";
 import "./App.css";
 
+
 const App = () => {
     const getData = () => JSON.parse(localStorage.getItem("tasks")) || [];
     const [todos, setTodos] = useState(getData);
